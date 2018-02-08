@@ -1,0 +1,117 @@
+//Walk towards Rose
+IF
+ GlobalLT("k-rose-silkemerc","GLOBAL",2)
+ !See("k-rose")
+ See("k-rmer1")
+ See("k-rmer2")
+ See("k-rmer3")
+THEN
+ RESPONSE #100
+  EquipRanged()
+  MoveToObject("k-rose")
+END
+
+IF
+ GlobalLT("k-rose-silkemerc","GLOBAL",2)
+ See("k-rose")
+ See("k-rmer2")
+ See("k-rmer1")
+ See("k-rmer3")
+THEN
+ RESPONSE #100
+  StartDialogueNoSet("k-rose")
+END
+
+//Help if attacked
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ AttackedBy([ANYONE],DEFAULT)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Help()
+  Continue()
+END
+
+//Mage Armor
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2102)
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(Myself,2102)
+END
+
+//Blur
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2201)
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(Myself,2201)
+END
+
+//Chromatic Orb
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2118)
+ !StateCheck(Myself,STATE_SILENCED)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2118)
+END
+
+//Attack
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ See(NearestEnemyOf(Myself))
+ !Range(NearestEnemyOf(Myself),10)
+ !OutOfAmmo()
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  EquipRanged()
+  AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ See(NearestEnemyOf(Myself))
+ Range(NearestEnemyOf(Myself),10)
+ !Range(NearestEnemyOf(Myself),3)
+ !OutOfAmmo()
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #50
+  RunAwayFrom(NearestEnemyOf(Myself),20)
+ RESPONSE #50
+  EquipMostDamagingMelee()
+  AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ See(NearestEnemyOf(Myself))
+ OutOfAmmo()
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  EquipMostDamagingMelee()
+  AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+//Random walk if alone
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  RandomWalk()
+END

@@ -1,0 +1,12 @@
+IF
+OR(2)
+InMyArea("k-rose") 
+InPartyAllowDead("k-rose") 
+GlobalLT("BD_PLOT","GLOBAL",51)
+THEN
+RESPONSE #100
+ActionOverride("k-rose",LeaveParty())
+SmallWait(1)
+ActionOverride("k-rose",DestroySelf())
+Continue()
+END

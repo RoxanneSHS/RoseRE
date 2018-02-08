@@ -1,0 +1,195 @@
+//Walk towards k-rmer4
+IF
+ GlobalLT("k-rose-silkemerc","GLOBAL",2)
+ !See("k-rose")
+THEN
+ RESPONSE #100
+  EquipMostDamagingMelee()
+  MoveToObject("k-rmer4")
+END
+
+//Remove Fear
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ StateCheck("k-rmer4",STATE_PANIC)
+ !StateCheck(Myself,STATE_SILENCED)
+ HaveSpell(1108)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell("k-rmer4",1108)
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ StateCheck("k-rmer2",STATE_PANIC)
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+ HaveSpell(1108)
+THEN
+ RESPONSE #100
+  Spell("k-rmer2",1108)
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ StateCheck("k-rmer1",STATE_PANIC)
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+ HaveSpell(1108)
+THEN
+ RESPONSE #100
+  Spell("k-rmer1",1108)
+END
+
+//Spell section
+//Buffs
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(1101)//Bless
+ HaveSpell(1203)//Chant
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #40
+  Spell(Myself,1101)
+ RESPONSE #40
+  Spell(Myself,1203)
+ RESPONSE #20
+  Continue()
+END
+
+//Doom
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(1113)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #80
+  Spell(NearestEnemyOf(Myself),1113)
+ RESPONSE #20
+  Continue()
+END
+
+//Silence
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(1211)
+ See(SecondNearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+ !Range(SecondNearestEnemyOf(Myself),15)
+THEN
+ RESPONSE #80
+  Spell(SecondNearestEnemyOf(Myself),1211)
+ RESPONSE #20
+  Continue()
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(1211)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+ !Range(NearestEnemyOf(Myself),15)
+THEN
+ RESPONSE #80
+  Spell(NearestEnemyOf(Myself),1211)
+ RESPONSE #20
+  Continue()
+END
+
+//Hold Person
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(1208)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(NearestEnemyOf(Myself),STATE_SLEEPING)
+ !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+ !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #80
+  Spell(NearestEnemyOf(Myself),1208)
+  AttackReevaluate(NearestEnemyOf(Myself),60)
+ RESPONSE #20
+  Continue()
+END
+
+//Command
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(1102)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(NearestEnemyOf(Myself),STATE_SLEEPING)
+ !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+ !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #80
+  Spell(NearestEnemyOf(Myself),1102)
+  AttackReevaluate(NearestEnemyOf(Myself),60)
+ RESPONSE #20
+  Continue()
+END
+
+//Attack
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+//Rejoin with the others if alone and there are no enemies
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ !Dead("k-rmer4")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer4")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ !Dead("k-rmer1")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer1")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ Dead("k-rmer1")
+ !Dead("k-rmer2")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer2")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ Dead("k-rmer1")
+ Dead("k-rmer2")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  RandomWalk()
+END

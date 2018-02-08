@@ -1,0 +1,26 @@
+IF
+ Global("k-rose-exist","GLOBAL",0)
+ Gender(Protagonist,MALE)
+ OR(3)
+  Race(Protagonist,HUMAN)
+  Race(Protagonist,ELF)
+  Race(Protagonist,HALF_ELF)
+ CheckStatGT(Protagonist,12,CHR)
+THEN
+ RESPONSE #100
+ SetGlobal("k-rose-romance","GLOBAL",1)
+ SetGlobal("k-rose-exist","GLOBAL",-1)
+ Continue()
+END
+
+IF
+ GlobalLT("k-rose-exist","GLOBAL",1)
+THEN
+ RESPONSE #100
+ SetGlobal("k-rose-exist","GLOBAL",1)
+ CreateCreature("k-rcomm",[71.289],8)
+ CreateCreature("k-rose",[93.249],0)
+ AddXPObject("k-rose",4793)
+ Continue()
+END
+

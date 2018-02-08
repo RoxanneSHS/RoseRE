@@ -1,0 +1,112 @@
+//Walk towards k-rmer4
+IF
+ GlobalLT("k-rose-silkemerc","GLOBAL",2)
+ !See("k-rose")
+THEN
+ RESPONSE #100
+  EquipMostDamagingMelee()
+  MoveToObject("k-rmer4")
+END
+
+//Drink healing potion if under 33hp
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HPPercentLT(Myself,75)
+ HasItem("potn08",Myself)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  UseItem("potn08",Myself)
+END
+
+//Drink strength potion
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ See(NearestEnemyOf(Myself))
+ HasItem("potn03",Myself)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #50
+  UseItem("potn03",Myself)
+ RESPONSE #50
+  Continue()
+END
+
+//Attack Thespian's attacker
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Help("k-rmer4")
+ !StateCheck(Myself,STATE_CHARMED)
+ !StateCheck("k-rmer4",STATE_CHARMED)
+THEN
+ RESPONSE #100
+  AttackReevaluate(LastAttackerOf("k-rmer4"),60)
+END
+
+//Attack mage's attacker
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ !Help("k-rmer4")
+ Help("k-rmer2")
+ !StateCheck(Myself,STATE_CHARMED)
+ !StateCheck("k-rmer2",STATE_CHARMED)
+THEN
+ RESPONSE #100
+  AttackReevaluate(LastAttackerOf("k-rmer2"),60)
+END
+
+//If none of the above, attack the nearest enemy
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+//Rejoin with the others if alone and there are no enemies
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ !Dead("k-rmer4")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer4")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ !Dead("k-rmer3")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer3")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ Dead("k-rmer3")
+ !Dead("k-rmer2")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer2")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ Dead("k-rmer3")
+ Dead("k-rmer2")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  RandomWalk()
+END

@@ -1,0 +1,292 @@
+//Walk towards k-rmer4
+IF
+ GlobalLT("k-rose-silkemerc","GLOBAL",2)
+ !See("k-rose")
+THEN
+ RESPONSE #100
+  EquipMostDamagingMelee()
+  MoveToObject("k-rmer4")
+END
+
+//Help if attacked
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ AttackedBy([ANYONE],DEFAULT)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Help()
+  Continue()
+END
+
+//If with spells and too close to an enemy, escape
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveAnySpells()
+ !StateCheck(Myself,STATE_SILENCED)
+ See(NearestEnemyOf(Myself))
+ Range(NearestEnemyOf(Myself),10)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  RunAwayFrom(NearestEnemyOf(Myself),15)
+END
+
+//Mage armor
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2102)
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(Myself,2102)
+END
+
+//Spells section
+//Disabling
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2116)//Sleep
+ HaveSpell(2205)//Horror
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+ OR(3)
+  See(NearestEnemyOf(Myself))
+  See(SecondNearestEnemyOf(Myself))
+  See(ThirdNearestEnemyOf(Myself))
+THEN
+ RESPONSE #45
+  Spell(LastSeenBy(Myself),2116)//Sleep
+ RESPONSE #45
+  Spell(LastSeenBy(Myself),2205)//Horror
+ RESPONSE #10
+  Continue()
+END
+
+//Offensive
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2211)//Melf's Acid Arrow
+ HaveSpell(2119)//Larloch's Minor Drain
+ HaveSpell(2118)//Chromatic Orb
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2211)
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2119)
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2118)
+END
+
+//Sleep
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2116)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(NearestEnemyOf(Myself),STATE_SLEEPING)
+ !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+ !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2116)
+END
+
+//Horror
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2205)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(NearestEnemyOf(Myself),STATE_SLEEPING)
+ !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+ !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2205)
+END
+
+//Offensive
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2118)//Chromatic Orb
+ HaveSpell(2119)//Larloch's Minor Drain
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #45
+  Spell(NearestEnemyOf(Myself),2118)
+ RESPONSE #45
+  Spell(NearestEnemyOf(Myself),2119)
+ RESPONSE #10
+  Continue()
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2118)//Chromatic Orb
+ HaveSpell(2211)//Melf's Acid Arrow
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #45
+  Spell(NearestEnemyOf(Myself),2118)
+ RESPONSE #45
+  Spell(NearestEnemyOf(Myself),2211)
+ RESPONSE #10
+  Continue()
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2119)//Larloch's Minor Drain
+ HaveSpell(2211)//Melf's Acid Arrow
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #45
+  Spell(NearestEnemyOf(Myself),2119)
+ RESPONSE #45
+  Spell(NearestEnemyOf(Myself),2211)
+ RESPONSE #10
+  Continue()
+END
+
+//Melf's Acid Arrow
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2211)
+ See(NearestEnemyOf(Myself))
+ See(SecondNearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2211)
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2211)
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2211)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2211)
+END
+
+//Chromatic Orb
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2118)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2118)
+END
+
+//Larloch's Minor Drain
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2119)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2119)
+END
+
+//Sleep
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2116)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2116)
+END
+
+//Horror
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ HaveSpell(2205)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_SILENCED)
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  Spell(NearestEnemyOf(Myself),2205)
+END
+
+//Attack
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+//Rejoin with the others if alone and there are no enemies
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ !Dead("k-rmer4")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer4")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ !Dead("k-rmer1")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer1")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ Dead("k-rmer1")
+ !Dead("k-rmer3")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  MoveToObject("k-rmer3")
+END
+
+IF
+ Global("k-rose-silkemerc","GLOBAL",2)
+ Dead("k-rmer4")
+ Dead("k-rmer3")
+ Dead("k-rmer1")
+ !See(NearestEnemyOf(Myself))
+ !StateCheck(Myself,STATE_CHARMED)
+THEN
+ RESPONSE #100
+  RandomWalk()
+END

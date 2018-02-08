@@ -1,0 +1,148 @@
+//FRIENDSHIP TALKS
+IF
+ InParty("k-rose")
+ CombatCounter(0)
+ See(Player1)
+ !See([ENEMY])
+ GlobalTimerExpired("k-rose-ftimer","GLOBAL")
+ RealGlobalTimerExpired("k-rose-realftimer","GLOBAL")
+ OR(3)
+  Global("k-rose-ftalk","GLOBAL",1) //do talk 1
+  Global("k-rose-ftalk","GLOBAL",3) //do talk 2
+  Global("k-rose-ftalk","GLOBAL",5) //do talk 3
+THEN
+ RESPONSE #100
+ Interact(Player1)
+END
+//END OF FRIENDSHIP TALKS
+
+//FRIENDSHIP TALK 4
+IF
+ InParty("k-rose")
+ CombatCounter(0)
+ See(Player1)
+ !See([ENEMY])
+ GlobalTimerExpired("k-rose-ftimer","GLOBAL")
+ RealGlobalTimerExpired("k-rose-realftimer","GLOBAL")
+ Global("k-rose-ftalk","GLOBAL",7)
+ Global("k-rose-pid1","GLOBAL",1)
+THEN
+ RESPONSE #100
+ Interact(Player1)
+END
+//END OF FRIENDSHIP TALK 4
+
+//VARIABLES FOR FT
+IF
+ OR(4)
+  Global("k-rose-ftalk","GLOBAL",2) //talk 1 done
+  Global("k-rose-ftalk","GLOBAL",4) //talk 2 done
+  Global("k-rose-ftalk","GLOBAL",6) //talk 3 done
+  Global("k-rose-ftalk","GLOBAL",8) //talk 4 done
+THEN
+ RESPONSE #100
+ IncrementGlobal("k-rose-ftalk","GLOBAL",1)
+ SetGlobalTimer("k-rose-ftimer","GLOBAL",THREE_DAYS)
+ RealSetGlobalTimer("k-rose-realftimer","GLOBAL",3600)
+END
+//END OF VARIABLE FOR FT
+
+//ROMANCE TALKS
+IF
+ InParty("k-rose")
+ CombatCounter(0)
+ See(Player1)
+ !See([ENEMY])
+ OR(1)
+  Global("k-rose-ltalk","GLOBAL",1)
+ GlobalTimerExpired("k-rose-ltimer","GLOBAL")
+THEN
+ RESPONSE #100
+ Interact(Player1)
+END
+//END OF ROMANCE TALKS
+
+//VARIABLES FOR LT
+IF
+ Global("k-rose-ltalk","GLOBAL",2)
+THEN
+ RESPONSE #100
+ IncrementGlobal("k-rose-ltalk","GLOBAL",1)
+END
+//END OF VARIABLE FOR LT
+
+//MAX FRIENDSHIP VARIABLE AT 5
+IF
+ GlobalGT("k-rose-friendship","GLOBAL",5)
+THEN
+ RESPONSE #100
+ SetGlobal("k-rose-friendship","GLOBAL",5)
+END
+//END OF MAX FRIENDSHIP VARIABLE AT 5
+
+//OUBLEK MISTAKE TALK
+IF
+ Global("k-rose-oublekmistake","GLOBAL",1)
+ InParty("k-rose")
+ CombatCounter(0)
+ See(Player1)
+ !See([ENEMY])
+THEN
+ RESPONSE #100
+ Interact(Player1)
+END
+//END OF OUBLEK MISTAKE TALK
+
+//SPIDER BODY TALK
+IF
+ Global("HelpLandrin","GLOBAL",1)
+ Global("k-rose-spider","GLOBAL",0)
+ !PartyHasItem("MISC60")
+THEN
+ RESPONSE #100
+ SetGlobal("k-rose-spider","GLOBAL",1)
+END
+
+IF
+ Global("k-rose-spider","GLOBAL",1)
+ AreaCheck("bg3315")
+ PartyHasItem("MISC60")
+ InParty("k-rose")
+ CombatCounter(0)
+ See(Player1)
+ !See([ENEMY])
+THEN
+ RESPONSE #100
+ Wait(3)
+ Interact(Player1)
+END
+//END OF SPIDER BODY TALK
+
+//ZOMBIE TALK FARM 1
+IF
+ Global("k-rose-zombiefarm","GLOBAL",1)
+ Global("ZombiesDead","GLOBAL",21)
+ InParty("k-rose")
+ CombatCounter(0)
+ See(Player1)
+ !See([ENEMY])
+THEN
+ RESPONSE #100
+ Interact(Player1)
+END
+//END OF ZOMBIE TALK FARM 1
+
+//ARMOR TALK
+IF
+ Global("k-rose-armortalk","GLOBAL",0)
+ HasItemSlot("k-rose",SLOT_ARMOR)
+ RandomNum(10,1)
+ InParty("k-rose")
+ CombatCounter(0)
+ See(Player1)
+ !See([ENEMY])
+THEN
+ RESPONSE #100
+ Interact(Player1)
+END
+//END OF ARMOR TALK

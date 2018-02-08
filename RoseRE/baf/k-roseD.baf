@@ -1,0 +1,26 @@
+IF
+Global("k-rose-zombiefarm","GLOBAL",2)
+OR(15)
+AreaCheck("BG4801")
+AreaCheck("BG2616")
+AreaCheck("BG3351")
+AreaCheck("BG3304")
+AreaCheck("BG2301")
+AreaCheck("BG0105")
+AreaCheck("BG0116")
+AreaCheck("BG0119")
+AreaCheck("BG0706")
+AreaCheck("BG4003")
+AreaCheck("BG1001")
+AreaCheck("bh0115")
+AreaCheck("bh0107")
+AreaCheck("BG3357")
+AreaCheck("BG0114")
+InParty("k-rose")
+CombatCounter(0)
+See(Player1)
+!See([ENEMY])
+THEN
+RESPONSE #100
+Interact(Player1)
+END

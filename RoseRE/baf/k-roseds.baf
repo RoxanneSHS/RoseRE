@@ -1,0 +1,19 @@
+IF
+ Global("ENDOFBG1","GLOBAL",0)
+ NumTimesTalkedTo(0)
+ See(Player1)
+ See("k-rcomm")
+THEN
+ RESPONSE #100
+  StartDialogueNoSet(Player1)
+END
+
+IF
+ Global("ENDOFBG1","GLOBAL",0)
+ NumTimesTalkedTo(1)
+ See(Player1)
+ !See("k-rcomm")
+THEN
+ RESPONSE #100
+  Dialogue(Player1)
+END
