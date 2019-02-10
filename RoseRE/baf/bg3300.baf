@@ -3,13 +3,13 @@ IF
  GlobalGT("k-rose-ftalk","GLOBAL",1)
  GlobalLT("k-rose-silkemerc","GLOBAL",1)
 THEN
- RESPONSE #20
+ RESPONSE #50
   SetGlobal("k-rose-silkemerc","GLOBAL",1)
   ActionOverride("k-rose",CreateCreatureOffScreen("k-rmer4",0))
   Wait(1)
   CreateCreatureObject("k-rmer2","k-rmer4",0,0,0)
   CreateCreatureObject("k-rmer3","k-rmer4",0,0,0)
   CreateCreatureObject("k-rmer1","k-rmer4",0,0,0)
- RESPONSE #80
+ RESPONSE #50
   Continue()
 END
