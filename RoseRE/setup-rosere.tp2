@@ -1,12 +1,13 @@
 BACKUP ~rosere/backup~
 //AUTHOR ~kthxbye~
 SUPPORT ~Roxanne - https://baldursextendedworld.com/Rose/ or roxanne@baldursextendedworld.com~
-VERSION ~v0.7~
+VERSION ~v0.8~
 
 
 AUTO_TRA ~rosere/tra/%s~
 
 LANGUAGE ~English~ ~english~ ~rosere/tra/english/setup.tra~
+LANGUAGE ~Russian (by Arcanecoast.ru)~ ~russian~ ~rosere/tra/russian/setup.tra~
 
 BEGIN @0
 
