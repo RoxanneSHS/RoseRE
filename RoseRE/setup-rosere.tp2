@@ -8,6 +8,7 @@ AUTO_TRA ~rosere/tra/%s~
 
 LANGUAGE ~English~ ~english~ ~rosere/tra/english/setup.tra~
 LANGUAGE ~Russian (by Arcanecoast.ru)~ ~russian~ ~rosere/tra/russian/setup.tra~
+LANGUAGE ~Schinese~ ~schinese~ ~rosere/tra/schinese/setup.tra~
 
 BEGIN @0
 
